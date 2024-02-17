@@ -129,16 +129,17 @@ namespace LogiceaCardsManagementApp2.Controllers
                 
                 command.CreatedBy = getLoggedInUserAsync().Result.Id;
                 
-                var result = new Card();
+                var card = new Card();
                 try
                 {
-                    result = await mediator.Send(command);
+                    card = await mediator.Send(command);
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError($"Create Card error :: {ex.Message}");
-                }
-                return Ok(result);
+                }           
+
+                return Ok(card);
             }
             return BadRequest(ModelState);
         }
