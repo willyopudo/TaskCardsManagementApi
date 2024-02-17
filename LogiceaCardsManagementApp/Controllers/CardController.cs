@@ -33,6 +33,8 @@ namespace LogiceaCardsManagementApp2.Controllers
             this.mediator = mediator;
             _logger = logger;
         }
+
+        //GetAll controller with pagination and filtering
         // GET: CardController
 
         [HttpGet]
@@ -190,7 +192,7 @@ namespace LogiceaCardsManagementApp2.Controllers
             else
                 return NotFound("Card Not found");
         }
-
+        //Util function for getting logged in user details from JWT token
         private async Task<User> getLoggedInUserAsync()
         {
             var userEmail = "";
