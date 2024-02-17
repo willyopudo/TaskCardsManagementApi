@@ -47,7 +47,7 @@ Use the token generated to authorize within Swagger UI or Postman and add some C
 
 Note: Color, if provided, should conform to a “6 alphanumeric characters prefixed with a #“ format<br>
 
-Play around with the other endpoints by testing several test cases <br>
+Play around with the other endpoints by testing several test cases :blush:<br>
 
 Thank you for checking out this repository :heart:
 
