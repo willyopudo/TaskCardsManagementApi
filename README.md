@@ -41,14 +41,11 @@ Use the token generated to authorize within Swagger UI or Postman and add some C
 {
   "name": "My first Task",
   "description": "This is my first demo task",
-  "color": "#000000",
-  "status": 0,
-  "createdBy": 0
+  "color": "#000000"
 }
 ```
 
-Note: Status is an int 0-ToDo, 1-InProgress, 2-Done mapped by an Enum<br>
-CreatedBy will be overriden by userId of logged user (This will be handled better by a DTO object in the near future :blush:)<br>
+Note: Color, if provided, should conform to a “6 alphanumeric characters prefixed with a #“ format<br>
 
 Play around with the other endpoints by testing several test cases <br>
 
