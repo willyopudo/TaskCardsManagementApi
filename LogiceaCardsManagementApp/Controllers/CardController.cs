@@ -118,7 +118,7 @@ namespace LogiceaCardsManagementApp2.Controllers
             List<Card> cards = await mediator.Send(mQuery);
             if(cards.Count > 0)
                 return Ok(cards.First());
-            return NotFound("Card Not found");
+            return NotFound(JSONSerializer(404, "Card Not found"));
         }
 
       
@@ -154,7 +154,7 @@ namespace LogiceaCardsManagementApp2.Controllers
         {
             if (id != cardDto.Id)
             {
-                return BadRequest("Entity ID not match URI ID");
+                return BadRequest(JSONSerializer(400, "Entity ID not match URI ID"));
             }
             EditCardCommand command = new EditCardCommand()
             {
@@ -167,12 +167,12 @@ namespace LogiceaCardsManagementApp2.Controllers
                 return Ok(card);
 
             if (card != null && card.Id == 0)
-                return Unauthorized("The opertaion was not permitted");
+                return Unauthorized(JSONSerializer(401, "The opertaion was not permitted"));
 
             if (card != null && card.Id == -1)
-                return BadRequest("Entered Card Status does not exist. Please use [ToDo, InProgress, Done]");
+                return BadRequest(JSONSerializer(400, "Entered Card Status does not exist. Please use [ToDo, InProgress, Done]"));
 
-            return NotFound("Card not found");
+            return NotFound(JSONSerializer(404, "Card not found"));
         }
 
         // DELETE: CardController/Delete/5
@@ -186,11 +186,11 @@ namespace LogiceaCardsManagementApp2.Controllers
             };
             var result = await mediator.Send(command);
             if (result == 1)
-                return Ok($"Card {command.Id} was deleted successfully");
+                return Ok(JSONSerializer(200, $"Card {command.Id} was deleted successfully"));
             else if(result == 2)
-                return Unauthorized("Action not authorized");
+                return Unauthorized(JSONSerializer(401, "Action not authorized"));
             else
-                return NotFound("Card Not found");
+                return NotFound(JSONSerializer(404, "Card Not found"));
         }
         //Util function for getting logged in user details from JWT token
         private async Task<User> getLoggedInUserAsync()
@@ -208,6 +208,10 @@ namespace LogiceaCardsManagementApp2.Controllers
             FindUserByEmailQuery query = new FindUserByEmailQuery() { Password = "", email = userEmail };
             User loggedInUser = await mediator.Send(query);
             return loggedInUser;
+        }
+        private string JSONSerializer(int statusCode, string message)
+        {
+            return JsonSerializer.Serialize(new GenericResponse() { statusCode = statusCode, message = message });
         }
     }
 }
